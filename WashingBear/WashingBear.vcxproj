@@ -92,6 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,6 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +123,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WB_ENGINE;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)\includes;$(SolutionDir)lib\GLEW\include;$(SolutionDir)lib\GLFW\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,6 +142,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WB_ENGINE;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)\includes;$(SolutionDir)lib\GLEW\include;$(SolutionDir)lib\GLFW\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +160,7 @@
       </ExcludedFromBuild>
       <FileType>Document</FileType>
     </None>
+    <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\layer\LayerManager.cpp" />
     <ClCompile Include="src\layer\HexLayer.cpp" />
     <ClCompile Include="src\layer\Layer.cpp" />
@@ -164,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\WBtypes.h" />
+    <ClInclude Include="includes\EventManager.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\layer\HexLayer.h" />
     <ClInclude Include="src\layer\Layer.h" />

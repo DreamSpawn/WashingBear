@@ -61,12 +61,9 @@ void HexLayer::setHexes(std::vector<WashingBear::Hex> hexes_in) {
   glVertexAttribIPointer(0, 1, GL_UNSIGNED_INT, 0, 0);
 }
 
-void HexLayer::addHex(unsigned int position, unsigned int color) {
-
-}
-
-unsigned int HexLayer::addColor(float red, float green, float blue) {
-  return 0;
+int HexLayer::pickGeom() {
+  // TODO implement
+  return -1;
 }
 
 HexLayer::~HexLayer() {

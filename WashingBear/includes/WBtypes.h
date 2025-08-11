@@ -1,5 +1,6 @@
 #pragma once
-
+#include <string>
+#include <map>
 
 namespace WashingBear {
   enum LayerType {
@@ -16,4 +17,9 @@ namespace WashingBear {
   typedef struct {
     unsigned int color;
   } Hex;
+
+  typedef struct {
+    std::map<std::string, double> numbers;
+    std::map<std::string, std::string> text;
+  } EventData;
 }

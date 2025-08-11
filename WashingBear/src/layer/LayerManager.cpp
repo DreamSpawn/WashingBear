@@ -20,10 +20,12 @@ namespace WashingBear {
     dynamic_cast<HexLayer*>(layer)->setHexes(hexes);
   }
 
-  static void SetHex(unsigned int layer, unsigned int position, unsigned int color) {
+  static std::vector<int> PickGeom() {
+    std::vector<int> hits = std::vector<int>(layers.size(), -1);
+    for (int i = 0; i < layers.size(); i++) {
+      hits.at(i) = layers.at(i)->pickGeom();
+    }
+    return hits;
   }
-
-
-
 }
 

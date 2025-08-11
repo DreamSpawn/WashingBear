@@ -59,6 +59,14 @@ namespace WashingBear {
     draw();
   }
 
+  void cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
+    EventData event_data;
+    event_data.numbers["xpos"] = xpos;
+    event_data.numbers["ypos"] = ypos;
+    EventManager::triggerEvent("mouse_move", event_data);
+  }
+
+
   int InitGLWindow() {
     /* Initialize the library */
     if (!glfwInit())
@@ -77,11 +85,14 @@ namespace WashingBear {
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, resize_callback);
+    glfwSetCursorPosCallback(window, cursor_position_callback);
 
     if (glewInit() != GLEW_OK)
       std::cout << "ERROR!" << std::endl;
 
     std::cout << glGetString(GL_VERSION) << std::endl;
+
+    EventManager::registerEvent("mouse_move");
   }
 
   int Run() {
