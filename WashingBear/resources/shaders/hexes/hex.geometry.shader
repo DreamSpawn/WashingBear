@@ -6,7 +6,6 @@ layout(points) in;
 layout(triangle_strip, max_vertices = 10) out;
 
 in uint geom_color[];
-//in vec2 geom_projection[];
 
 flat out uint fragment_color;
 

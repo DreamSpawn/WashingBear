@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include "../shaders.h"
 #include <memory>
+#include <iostream>
 
 extern std::string WashingBear::resourcePath;
 
@@ -24,11 +25,14 @@ HexLayer::HexLayer(std::vector<WashingBear::Color4f> colors, unsigned int width)
   int colors_location = glGetUniformLocation(program, "colors");
   int width_location = glGetUniformLocation(program, "width");
   int pos_location = glGetUniformLocation(program, "pos");
+  pick_mode_location = glGetUniformLocation(program, "pick_mode");
+  selected_location = glGetUniformLocation(program, "selected_id");
 
   glUseProgram(program);
   glUniform4fv(colors_location, colors.size(), (float*) colors.data());
   glUniform1ui(width_location, width);
   glUniform2ui(pos_location, 5u, 5u);
+  glUniform1i(pick_mode_location, 0);
 }
 
 void HexLayer::setProjection(float x, float y) {
@@ -61,9 +65,25 @@ void HexLayer::setHexes(std::vector<WashingBear::Hex> hexes_in) {
   glVertexAttribIPointer(0, 1, GL_UNSIGNED_INT, 0, 0);
 }
 
-int HexLayer::pickGeom() {
-  // TODO implement
-  return -1;
+void HexLayer::setSelected(unsigned int hex) {
+  glUniform1ui(selected_location, hex);
+}
+
+int HexLayer::pickGeom(int x, int y) {
+  if (hexes.size() == 0) return -1;
+
+  glClearColor(1.0, 1.0, 1.0, 1.0);
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  glUseProgram(program);
+  glUniform1i(pick_mode_location, 1);
+  glDrawArrays(GL_POINTS, 0, hexes.size());
+  glUniform1i(pick_mode_location, 0);
+
+  unsigned int id;
+  glReadPixels(x, WashingBear::window_height - y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, &id);
+
+  return id;
 }
 
 HexLayer::~HexLayer() {

@@ -11,6 +11,9 @@ namespace WashingBear {
   std::string windowTitle = "WashingBear Engine";
   std::string resourcePath = "resources";
   
+  int window_width;
+  int window_height;
+
   float projection_x;
   float projection_y;
 
@@ -25,6 +28,9 @@ namespace WashingBear {
   }
 
   void setProjection(int width, int height) {
+    window_width = width;
+    window_height = height;
+
     float x = 1.0;
     float y = 1.0;
     if (width > height) {
@@ -43,6 +49,7 @@ namespace WashingBear {
 
   void draw() {
     /* Render here */
+    glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     for (Layer* layer : layers) {
@@ -52,10 +59,28 @@ namespace WashingBear {
     /* Swap front and back buffers */
     glfwSwapBuffers(window);
   }
+
+  static void resize_pick_buffer(int width, int height) {
+    if (pick_frame_buffer == 0) return;
+
+    GLint standard_frame_buffer;
+    glGetIntegerv(GL_DRAW_FRAMEBUFFER_BINDING, &standard_frame_buffer);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, pick_frame_buffer);
+    glDeleteRenderbuffers(1, &pick_render_buffer);
+
+    glGenRenderbuffers(1, &pick_render_buffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, pick_render_buffer);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, pick_render_buffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
+
+    glBindFramebuffer(GL_FRAMEBUFFER, standard_frame_buffer);
+  }
   
   void resize_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
     setProjection(width, height);
+    resize_pick_buffer(width, height);
     draw();
   }
 
@@ -66,17 +91,16 @@ namespace WashingBear {
     EventManager::triggerEvent("mouse_move", event_data);
   }
 
-
   int InitGLWindow() {
     /* Initialize the library */
     if (!glfwInit())
       return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    int width = 1200;
-    int height = 800;
-    setProjection(width, height);
-    window = glfwCreateWindow(width, height, windowTitle.c_str(), NULL, NULL);
+    window_width = 1200;
+    window_height = 800;
+    setProjection(window_width, window_height);
+    window = glfwCreateWindow(window_width, window_height, windowTitle.c_str(), NULL, NULL);
     if (!window) {
       glfwTerminate();
       return -1;

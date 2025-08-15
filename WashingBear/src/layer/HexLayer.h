@@ -11,9 +11,10 @@ public:
   void render();
   WashingBear::LayerType getType() { return WashingBear::HEX; }
   void setHexes(std::vector<WashingBear::Hex> hexes);
+  void setSelected(unsigned int hex);
   void setProjection(float x, float y);
 
-  int pickGeom();
+  int pickGeom(int x, int y);
 
   ~HexLayer();
 
@@ -21,8 +22,12 @@ private:
   std::vector<WashingBear::Color4f> colors;
   std::vector<WashingBear::Hex> hexes;
 
-  unsigned int color_buffer;
-  unsigned int program;
   unsigned int width;
+
+  unsigned int program;
+  unsigned int color_buffer;
+  int pick_mode_location;
+  int selected_location;
+  
 };
 
