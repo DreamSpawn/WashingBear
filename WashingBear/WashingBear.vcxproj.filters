@@ -30,7 +30,10 @@
     <ClCompile Include="src\layer\LayerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\EventManager.cpp">
+    <ClCompile Include="src\events\Events.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\events\EventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +56,10 @@
     <ClInclude Include="includes\WBtypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\EventManager.h">
+    <ClInclude Include="includes\Events.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\events\EventManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

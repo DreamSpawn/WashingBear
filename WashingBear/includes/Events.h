@@ -13,7 +13,7 @@
 namespace WashingBear {
 	typedef bool handler_func(EventData);
 
-	class WB_API EventManager	{
+	class WB_API Events	{
 	
 	public:
 		static void registerEvent(std::string event_name);

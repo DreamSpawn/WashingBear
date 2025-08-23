@@ -160,7 +160,8 @@
       </ExcludedFromBuild>
       <FileType>Document</FileType>
     </None>
-    <ClCompile Include="src\EventManager.cpp" />
+    <ClCompile Include="src\events\Events.cpp" />
+    <ClCompile Include="src\events\EventManager.cpp" />
     <ClCompile Include="src\layer\LayerManager.cpp" />
     <ClCompile Include="src\layer\HexLayer.cpp" />
     <ClCompile Include="src\layer\Layer.cpp" />
@@ -169,7 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\WBtypes.h" />
-    <ClInclude Include="includes\EventManager.h" />
+    <ClInclude Include="includes\Events.h" />
+    <ClInclude Include="src\events\EventManager.h" />
     <ClInclude Include="src\global.h" />
     <ClInclude Include="src\layer\HexLayer.h" />
     <ClInclude Include="src\layer\Layer.h" />

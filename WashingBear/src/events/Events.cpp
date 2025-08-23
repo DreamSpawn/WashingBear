@@ -1,13 +1,13 @@
-#include "EventManager.h"
+#include "Events.h"
 
 namespace WashingBear {
-	void EventManager::registerEvent(std::string event_name) {
+	void Events::registerEvent(std::string event_name) {
 		if (!handlers.contains(event_name)) {
 			handlers[event_name] = std::vector<handler_func*>();
 		}
 	}
 
-	void EventManager::triggerEvent(std::string event_name, EventData event_data) {
+	void Events::triggerEvent(std::string event_name, EventData event_data) {
 		if (!handlers.contains(event_name)) return;
 
 		event_data.text["event_name"] = event_name;
@@ -17,7 +17,7 @@ namespace WashingBear {
 		}
 	}
 
-	void EventManager::addHandler(std::string event_name, handler_func* handler) {
+	void Events::addHandler(std::string event_name, handler_func* handler) {
 		if (!handlers.contains(event_name)) {
 			handlers[event_name] = std::vector<handler_func*>();
 		}
@@ -25,5 +25,7 @@ namespace WashingBear {
 		handlers.at(event_name).push_back(handler);
 	}
 
-	std::map<std::string, std::vector<handler_func*>> EventManager::handlers = std::map<std::string, std::vector<handler_func*>>();
+
+
+	std::map<std::string, std::vector<handler_func*>> Events::handlers = std::map<std::string, std::vector<handler_func*>>();
 }
