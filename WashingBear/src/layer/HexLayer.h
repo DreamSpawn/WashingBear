@@ -13,6 +13,7 @@ public:
   void setHexes(std::vector<WashingBear::Hex> hexes);
   void setSelected(unsigned int hex);
   void setProjection(float x, float y);
+  void setTranlate(float x, float y);
 
   int pickGeom(int x, int y);
 
@@ -26,8 +27,9 @@ private:
 
   unsigned int program;
   unsigned int color_buffer;
+  int scaling_location;
   int pick_mode_location;
   int selected_location;
-  
+  int translate_location;
 };
 

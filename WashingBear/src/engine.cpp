@@ -85,14 +85,14 @@ namespace WashingBear {
     draw();
   }
 
-  int InitGLWindow() {
+  int InitGLWindow(int width, int height) {
     /* Initialize the library */
     if (!glfwInit())
       return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window_width = 1200;
-    window_height = 800;
+    window_width = width;
+    window_height = height;
     setProjection(window_width, window_height);
     window = glfwCreateWindow(window_width, window_height, windowTitle.c_str(), NULL, NULL);
     if (!window) {
@@ -126,6 +126,15 @@ namespace WashingBear {
 
     glfwTerminate();
     return 0;
+  }
+
+  void ToggleCursor(bool visible) {
+    if (visible) {
+      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+    else {
+      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
   }
 
 }

@@ -1,3 +1,3 @@
 #pragma once
 
-void initGUI();
+void initGUI(int width, int height);

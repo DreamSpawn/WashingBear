@@ -8,7 +8,10 @@ int main() {
 	WashingBear::SetTitle("HexStrategy");
 	WashingBear::SetResourcePath("../WashingBear/resources");
 
-	if (WashingBear::InitGLWindow() == -1) {
+	int width = 1200;
+	int height = 800;
+
+	if (WashingBear::InitGLWindow(width, height) == -1) {
 		return -1;
 	}
 
@@ -16,7 +19,7 @@ int main() {
 	hex_layer = WashingBear::CreateHexLayer(Map::terrain_colors(), world.get_width());
 	WashingBear::SetHexes(hex_layer, world.getHexes());
 
-	initGUI();
+	initGUI(width, height);
 
 	return WashingBear::Run();
 }

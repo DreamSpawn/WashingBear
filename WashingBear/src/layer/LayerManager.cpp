@@ -54,5 +54,9 @@ namespace WashingBear {
     glBindFramebuffer(GL_FRAMEBUFFER, standard_frame_buffer);
     return hits;
   }
+
+  static void SetTranslation(unsigned int layer_id, float x, float y) {
+    layers.at(layer_id)->setTranlate(x,y);
+  }
 }
 

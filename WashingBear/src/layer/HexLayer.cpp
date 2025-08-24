@@ -8,6 +8,8 @@
 extern std::string WashingBear::resourcePath;
 
 HexLayer::HexLayer(std::vector<WashingBear::Color4f> colors, unsigned int width) : colors{colors}, width{width} {
+  color_buffer = 0;
+
   std::string vertex_source = WashingBear::LoadShaderFile(WashingBear::resourcePath + "/shaders/hexes/hex.vertex.shader");
   std::string geometry_source = WashingBear::LoadShaderFile(WashingBear::resourcePath + "/shaders/hexes/hex.geometry.shader");
   std::string fragment_source = WashingBear::LoadShaderFile(WashingBear::resourcePath + "/shaders/hexes/hex.fragment.shader");
@@ -24,20 +26,25 @@ HexLayer::HexLayer(std::vector<WashingBear::Color4f> colors, unsigned int width)
   
   int colors_location = glGetUniformLocation(program, "colors");
   int width_location = glGetUniformLocation(program, "width");
-  int pos_location = glGetUniformLocation(program, "pos");
+  scaling_location = glGetUniformLocation(program, "scaling");
+  translate_location = glGetUniformLocation(program, "translate");
   pick_mode_location = glGetUniformLocation(program, "pick_mode");
   selected_location = glGetUniformLocation(program, "selected_id");
 
   glUseProgram(program);
   glUniform4fv(colors_location, colors.size(), (float*) colors.data());
   glUniform1ui(width_location, width);
-  glUniform2ui(pos_location, 5u, 5u);
+  glUniform2f(scaling_location, 1.0, 1.0);
+  glUniform2f(translate_location, 0.0, 0.0);
   glUniform1i(pick_mode_location, 0);
 }
 
 void HexLayer::setProjection(float x, float y) {
-  int pos_projection = glGetUniformLocation(program, "projection");
-  glUniform2f(pos_projection, x, y);
+  glUniform2f(scaling_location, x, y);
+}
+
+void HexLayer::setTranlate(float x, float y) {
+  glUniform2f(translate_location, x, y);
 }
 
 void HexLayer::render() {
@@ -63,6 +70,9 @@ void HexLayer::setHexes(std::vector<WashingBear::Hex> hexes_in) {
 
   glEnableVertexAttribArray(0);
   glVertexAttribIPointer(0, 1, GL_UNSIGNED_INT, 0, 0);
+
+  float height = (float) hexes.size() / width;
+  glUniform2f(translate_location, width * -.0866, height * 0.075);
 }
 
 void HexLayer::setSelected(unsigned int hex) {
